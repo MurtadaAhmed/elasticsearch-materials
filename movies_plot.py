@@ -40,19 +40,17 @@ es.info().body
 
 response = es.search(
     index="movies2",
-    query={
-        "bool":{
-            "must":{
-                "match_phrase":{
-                    "cast": "jack nicholson",
-                }
-            },
-            "filter":{
-                "bool":{
-                    "must_not":{
-                        "match_phrase":{
-                            "director": "roman polanski"
-                        }
+    body={
+        "query": {
+            "bool": {
+                "must": {
+                    "match": {
+                        "cast": "jack nicholson"
+                    }
+                },
+                "must_not": {
+                    "match": {
+                        "director": "roman polanski"
                     }
                 }
             }
@@ -60,7 +58,8 @@ response = es.search(
     }
 )
 
-response.body
-
-# response = es.cat.indices(index='movies2', format='json')
 print(response)
+for hit in response['hits']['hits']:
+    print(f'Title: {hit["_source"]["title"]}, Director: {hit["_source"]["director"]}, Cast: {hit["_source"]["cast"]}')
+
+
