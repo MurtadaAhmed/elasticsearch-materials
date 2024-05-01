@@ -1,0 +1,5 @@
+elastic search: http://localhost:9200/
+kabana: http://localhost:5601/app/home
+in kabana dev tools:
+>> GET _cat/indices
+to return the indices
